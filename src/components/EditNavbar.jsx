@@ -2,7 +2,13 @@ import React from 'react'
 
 function EditNavbar() {
     return (
-        <div>EditNavbar</div>
+        <div> 
+            <form>
+                <div>
+                    <input type="file" name="logo" id="logo" />
+                </div>
+            </form>
+        </div>
     )
 }
 
