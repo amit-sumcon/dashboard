@@ -38,8 +38,6 @@ function SideNav({ isMenu, setIsMenu }) {
         }
     }, [isLocked, isCollapsed]);
 
-    // setIsMenu(isMenuOpen)
-
     return (
         <div
             className={`${isCollapsed ? 'w-20 duration-200 transition-all ease-in' : 'w-64 transition-all duration-200 ease-out'} h-screen bg-white border-r dark:bg-slate-900 dark:text-white ${!isMenu && !isLargeView && 'hidden'} absolute z-50 lg:static lg:z-0 overflow-y-auto`}
