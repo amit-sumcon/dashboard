@@ -47,8 +47,7 @@ function SideNav({ isMenu, setIsMenu }) {
         >
             <div className='flex justify-between items-center gap-16 pt-6 pb-3 px-4 fixed bg-white dark:bg-slate-900'>
                 <div className='flex items-center gap-2'>
-                    <img src={`https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`} alt="" className='w-10 h-10 rounded-full' />
-                    <span className={`${isCollapsed && 'hidden'} text-xl font-bold`}>Velocity</span>
+                    <span className={`${isCollapsed && 'hidden'} text-xl font-bold`}>Thrive</span>
                 </div>
                 {
                     isLargeView
@@ -99,14 +98,10 @@ function SideNav({ isMenu, setIsMenu }) {
                     </div>
                 </div>
                 <div className='flex flex-col gap-3 w-full'>
-                    <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>User</span>
+                    <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>Navbar</span>
                     <div className='flex items-center gap-3'>
                         <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/user/list" className={`${isCollapsed && 'hidden'}`}>List</Link>
-                    </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-street-view text-2xl'></i>
-                        <Link to="/user/view" className={`${isCollapsed && 'hidden'}`}>View</Link>
+                        <Link to="/navbar/edit-navbar" className={`${isCollapsed && 'hidden'}`}>Edit Navbar</Link>
                     </div>
                 </div>
                 <div className='flex flex-col gap-3 w-full'>
