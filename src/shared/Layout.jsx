@@ -12,11 +12,9 @@ function Layout({ setIsDarkMode }) {
             <div className='dark:bg-slate-900'>
                 <SideNav isMenu={isMenu} setIsMenu={setIsMenu} />
             </div>
-            <div className='w-full flex flex-col'>
-                <div className='pt-5 w-full px-5 bg-white xl:mr-60 dark:bg-slate-900'>
-                    <Navbar setIsDarkMode={setIsDarkMode} setIsMenu={setIsMenu} />
-                </div>
-                <div className='flex-1 pt-5 pl-5 pr-1 overflow-y-scroll'>
+            <div className='w-full flex flex-col overflow-y-scroll px-3 pt-3'>
+                <Navbar setIsDarkMode={setIsDarkMode} setIsMenu={setIsMenu} />
+                <div className='flex-1 pt-5 pl-5 pr-1'>
                     <div className='min-h-screen'>
                         <Outlet />
                     </div>
