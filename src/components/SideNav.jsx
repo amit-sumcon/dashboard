@@ -37,13 +37,12 @@ function SideNav({ isMenu, setIsMenu }) {
             };
         }
     }, [isLocked, isCollapsed]);
-
     return (
         <div
-            className={`${isCollapsed ? 'w-20 duration-200 transition-all ease-in' : 'w-64 transition-all duration-200 ease-out'} h-screen bg-white border-r dark:bg-slate-900 dark:text-white ${!isMenu && !isLargeView && 'hidden'} absolute z-50 lg:static lg:z-0 overflow-y-auto`}
+            className={`${isCollapsed ? 'w-20 duration-200 transition-all ease-in' : 'w-64 transition-all duration-200 ease-out'} h-screen bg-white border-r dark:bg-slate-900 dark:text-white ${!isMenu && !isLargeView && 'hidden'} absolute z-50 lg:static lg:z-0`}
             id='sidebar'
         >
-            <div className='flex justify-between items-center gap-16 pt-6 pb-3 px-4 fixed bg-white dark:bg-slate-900'>
+            <div className='flex justify-between items-center gap-16 pt-6 pb-3 px-4 bg-white dark:bg-slate-900'>
                 <div className='flex items-center gap-2'>
                     <span className={`${isCollapsed && 'hidden'} text-xl font-bold`}>Thrive</span>
                 </div>
@@ -63,54 +62,60 @@ function SideNav({ isMenu, setIsMenu }) {
                         </div>
                 }
             </div>
-            <div className='flex flex-col gap-4 mt-20 px-6 w-full'>
-                <div className='flex items-center gap-3'>
-                    <i className='bx bx-home-smile text-2xl'></i>
-                    <Link to="/" className={`${isCollapsed && 'hidden'}`}>Dashboard</Link>
-                </div>
-                <div className='flex flex-col gap-3 w-full'>
-                    <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>Pages</span>
+            <div className='w-full h-full overflow-y-scroll no-scrollbar'>
+                <div className='flex flex-col gap-4 mb-20 mt-5 px-6 w-full'>
                     <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/pages/hero" className={`${isCollapsed && 'hidden'}`}>Hero</Link>
+                        <i className='bx bx-home-smile text-2xl'></i>
+                        <Link to="/" className={`${isCollapsed && 'hidden'}`}>Dashboard</Link>
                     </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/pages/about-us" className={`${isCollapsed && 'hidden'}`}>About Us</Link>
+                    <div className='flex flex-col gap-3 w-full'>
+                        <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>Pages</span>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/pages/hero" className={`${isCollapsed && 'hidden'}`}>Hero</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/pages/about-us" className={`${isCollapsed && 'hidden'}`}>About Us</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/pages/services" className={`${isCollapsed && 'hidden'}`}>Service</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/pages/why-choose-us" className={`${isCollapsed && 'hidden'}`}>Why Choose Us</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/pages/testimonials" className={`${isCollapsed && 'hidden'}`}>Testimonials</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/pages/contact-us" className={`${isCollapsed && 'hidden'}`}>Contact Us</Link>
+                        </div>
                     </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/pages/services" className={`${isCollapsed && 'hidden'}`}>Service</Link>
+                    <div className='flex flex-col gap-3 w-full'>
+                        <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>User</span>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-list-ol text-2xl' ></i>
+                            <Link to="/user/list" className={`${isCollapsed && 'hidden'}`}>List</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-street-view text-2xl'></i>
+                            <Link to="/user/view" className={`${isCollapsed && 'hidden'}`}>View</Link>
+                        </div>
                     </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/pages/why-choose-us" className={`${isCollapsed && 'hidden'}`}>Why Choose Us</Link>
-                    </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/pages/testimonials" className={`${isCollapsed && 'hidden'}`}>Testimonials</Link>
-                    </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/pages/contact-us" className={`${isCollapsed && 'hidden'}`}>Contact Us</Link>
-                    </div>
-                </div>
-                <div className='flex flex-col gap-3 w-full'>
-                    <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>Navbar</span>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-list-ol text-2xl' ></i>
-                        <Link to="/navbar/edit-navbar" className={`${isCollapsed && 'hidden'}`}>Edit Navbar</Link>
-                    </div>
-                </div>
-                <div className='flex flex-col gap-3 w-full'>
-                    <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>Roles & Permissions</span>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-check-shield text-2xl'></i>
-                        <Link to="/roles-permissions/roles" className={`${isCollapsed && 'hidden'}`}>Roles</Link>
-                    </div>
-                    <div className='flex items-center gap-3'>
-                        <i className='bx bx-lock-alt text-2xl' ></i>
-                        <Link to="/roles-permissions/permissions" className={`${isCollapsed && 'hidden'}`}>Permissions</Link>
+                    <div className='flex flex-col gap-3 w-full'>
+                        <span className={`${isCollapsed && 'hidden'} text-sm text-gray-500`}>Roles & Permissions</span>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-check-shield text-2xl'></i>
+                            <Link to="/roles-permissions/roles" className={`${isCollapsed && 'hidden'}`}>Roles</Link>
+                        </div>
+                        <div className='flex items-center gap-3'>
+                            <i className='bx bx-lock-alt text-2xl' ></i>
+                            <Link to="/roles-permissions/permissions" className={`${isCollapsed && 'hidden'}`}>Permissions</Link>
+                        </div>
                     </div>
                 </div>
             </div>
