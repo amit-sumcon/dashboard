@@ -122,11 +122,11 @@ export default SideNav
 
 const LinkItem = ({ path, isActive, label, icon_name }) => {
     return (
-        <div className='relative'>
+        <Link to={path} className='relative'>
             <div className={`flex items-center gap-3 cursor-pointer text-white py-2 px-3 rounded-s-xl hover:bg-white hover:text-sky-900 duration-300 ${isActive ? "rounded-custom" : ""}`}>
                 <i className={`bx bx-${icon_name} text-2xl`}></i>
-                <Link to={path}>{label}</Link>
+                <span>{label}</span>
             </div>
-        </div>
+        </Link>
     )
 }
