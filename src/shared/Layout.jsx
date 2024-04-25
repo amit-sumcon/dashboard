@@ -14,7 +14,7 @@ function Layout({ setIsDarkMode }) {
             </div>
             <div className='w-full flex flex-col overflow-y-scroll px-3 pt-3'>
                 <Navbar setIsDarkMode={setIsDarkMode} setIsMenu={setIsMenu} />
-                <div className='flex-1 pt-5 pl-5 pr-1'>
+                <div className='flex-1 mt-3'>
                     <div className='min-h-screen'>
                         <Outlet />
                     </div>
