@@ -61,7 +61,7 @@ function SideNav({ isMenu, setIsMenu }) {
 
     return (
         <div
-            className={`${isCollapsed ? 'w-24 duration-200 transition-all ease-in' : 'w-64 transition-all duration-300 ease-out'} h-screen bg-sky-900 text-white ${!isMenu && !isLargeView && 'hidden'} fixed z-50`}
+            className={`${isCollapsed ? 'w-24 duration-200 transition-all ease-in' : 'w-64 transition-all duration-300 ease-out'} h-screen bg-sky-900 text-white ${!isMenu && !isLargeView && 'hidden'} absolute z-50 lg:static lg:z-0`}
             id='sidebar'
         >
             <div className='flex justify-between items-center gap-16 pt-6 pb-3 px-4'>
