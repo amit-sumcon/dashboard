@@ -61,10 +61,10 @@ function SideNav({ isMenu, setIsMenu }) {
 
     return (
         <div
-            className={`${isCollapsed ? 'w-24 duration-200 transition-all ease-in' : 'w-64 transition-all duration-300 ease-out'} h-screen bg-sky-900 text-white dark:bg-slate-900 dark:text-white ${!isMenu && !isLargeView && 'hidden'} absolute z-50 lg:static lg:z-0`}
+            className={`${isCollapsed ? 'w-24 duration-200 transition-all ease-in' : 'w-64 transition-all duration-300 ease-out'} h-screen bg-sky-900 text-white ${!isMenu && !isLargeView && 'hidden'} fixed z-50`}
             id='sidebar'
         >
-            <div className='flex justify-between items-center gap-16 pt-6 pb-3 px-4 dark:bg-slate-900'>
+            <div className='flex justify-between items-center gap-16 pt-6 pb-3 px-4'>
                 <div className='flex items-center gap-2'>
                     <span className={`text-xl font-bold`}>Thrive</span>
                 </div>
@@ -84,8 +84,8 @@ function SideNav({ isMenu, setIsMenu }) {
                         </div>
                 }
             </div>
-            <div className='w-full h-full overflow-y-scroll no-scrollbar'>
-                <div className='flex flex-col gap-4 mb-20 mt-5 pl-6 w-full'>
+            <div className='w-full h-[630px] lg:h-full overflow-y-scroll hide-scrollbar'>
+                <div className='flex flex-col gap-4 mt-5 lg:mb-20 pl-6 w-full'>
                     <LinkItem isActive={isActive('/')} label="DashBoard" path="/" icon_name="home-smile" isCollapsed={isCollapsed} />
                     <div className='flex flex-col gap-3 w-full'>
                         <div className='flex flex-col gap-3 w-full'>
