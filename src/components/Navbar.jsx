@@ -46,7 +46,7 @@ function Navbar({ setIsMenu }) {
                     <span className='text-base'>Change Password</span>
                 </Link>
                 <Link to="/" className='flex items-center gap-3'>
-                    <i class='bx bx-log-out text-2xl'></i>
+                    <i className='bx bx-log-out text-2xl'></i>
                     <span className='text-base'>Logout</span>
                 </Link>
             </div>
