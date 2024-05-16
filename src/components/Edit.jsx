@@ -77,9 +77,9 @@ function ImageUpload() {
         </label>
         <div onClick={handleClick} style={{ cursor: "pointer" }}>
           {image ? (
-            <img src={URL.createObjectURL(image)} alt="upload image" className="img-display-after" />
+            <img src={URL.createObjectURL(image)} alt="upload" className="img-display-after" />
           ) : (
-            <img src="./photo.png" alt="upload image" className="img-display-before" />
+            <img src="./photo.png" alt="upload" className="img-display-before" />
           )}
 
           <input
