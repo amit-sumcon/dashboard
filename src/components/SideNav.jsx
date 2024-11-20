@@ -3,7 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 const management = [
-	{ label: "Task Management", path: "/management/task-management" },
+	{
+		label: "Task Management",
+		path: "/management/task-management",
+		icon: "task",
+	},
 ];
 
 function SideNav({ isMenu, setIsMenu }) {
@@ -111,7 +115,7 @@ function SideNav({ isMenu, setIsMenu }) {
 									isActive={isActive(item.path)}
 									path={item.path}
 									label={item.label}
-									icon_name="list-ol"
+									icon_name={item.icon}
 									key={index}
 									isCollapsed={isCollapsed}
 								/>
