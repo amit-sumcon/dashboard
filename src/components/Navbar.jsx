@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import userImage from "../assets/user-image.png";
 
 function Navbar({ setIsMenu }) {
 	const [isShow, setIsShow] = useState(false);
@@ -29,8 +30,12 @@ function Navbar({ setIsMenu }) {
 	};
 
 	const handleLogout = async () => {
-		Cookies.remove("accessToken");
-		navigate("/login");
+		try {
+			Cookies.remove("accessToken");
+			navigate("/login");
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
 	};
 
 	return (
@@ -39,6 +44,7 @@ function Navbar({ setIsMenu }) {
 			ref={dropdownRef}
 		>
 			<div className="w-full h-full flex justify-between items-center">
+				{/* Menu Icon */}
 				<div className="w-fit h-full flex items-center gap-3">
 					<div
 						className="lg:hidden"
@@ -49,13 +55,36 @@ function Navbar({ setIsMenu }) {
 						<i className="bx bx-menu text-3xl cursor-pointer"></i>
 					</div>
 				</div>
+
+				{/* Search Bar */}
+				<div
+					className={`${
+						setIsMenu ? "hidden" : "block"
+					} lg:flex lg:justify-start justify-center flex-grow`}
+				>
+					<input
+						type="text"
+						placeholder="Search"
+						className="border rounded-md px-4 py-2 w-full lg:w-96"
+					/>
+				</div>
+
+				{/* Profile Icon */}
 				<div className="flex items-center gap-10 md:gap-5">
 					<div className="cursor-pointer" onClick={handleShow}>
-						<i className="bx bxs-user-circle text-2xl"></i>
+						<img
+							src={userImage}
+							alt="user profile"
+							className="w-10 h-10 rounded-full"
+						/>
 					</div>
 				</div>
 			</div>
+
+			{/* Dropdown Menu */}
 			<div
+				role="menu"
+				aria-hidden={!isShow}
 				className={`absolute w-52 h-40 flex flex-col gap-3 right-0 bottom-[-170px] py-4 px-4 rounded-md border shadow-md bg-white ${
 					isShow ? "block" : "hidden"
 				}`}
