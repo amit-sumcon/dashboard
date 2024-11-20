@@ -89,6 +89,7 @@ export default function Login() {
 						<input
 							id="password"
 							type="password"
+							placeholder="Enter 6 digits password"
 							required
 							value={values.password}
 							onChange={handleChange}
