@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import userImage from "../assets/user-image.png";
+import { useSelector } from "react-redux";
 
 function Navbar({ setIsMenu }) {
 	const [isShow, setIsShow] = useState(false);
 	const dropdownRef = useRef(null);
 	const navigate = useNavigate();
+	const { user } = useSelector((state) => state.user);
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
@@ -73,7 +75,7 @@ function Navbar({ setIsMenu }) {
 				<div className="flex items-center gap-10 md:gap-5">
 					<div className="cursor-pointer" onClick={handleShow}>
 						<img
-							src={userImage}
+							src={user.avatarUrl ? user.avatarUrl : userImage}
 							alt="user profile"
 							className="w-10 h-10 rounded-full"
 						/>
@@ -85,7 +87,7 @@ function Navbar({ setIsMenu }) {
 			<div
 				role="menu"
 				aria-hidden={!isShow}
-				className={`absolute w-52 h-40 flex flex-col gap-3 right-0 bottom-[-170px] py-4 px-4 rounded-md border shadow-md bg-white ${
+				className={`absolute w-52 z-50 h-40 flex flex-col gap-3 right-0 bottom-[-170px] py-4 px-4 rounded-md border shadow-md bg-white ${
 					isShow ? "block" : "hidden"
 				}`}
 			>

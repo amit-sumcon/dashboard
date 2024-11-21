@@ -6,6 +6,8 @@ import axios from "axios";
 import Error from "../components/Error";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slices/userSlice";
 
 const initial_values = {
 	email: "",
@@ -15,6 +17,7 @@ const initial_values = {
 export default function Login() {
 	const inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const { values, handleBlur, handleChange, errors, handleSubmit, touched } =
 		useFormik({
 			initialValues: initial_values,
@@ -29,6 +32,7 @@ export default function Login() {
 					Cookies.set("accessToken", response.data.data.accessToken, {
 						expires: inFifteenMinutes,
 					});
+					dispatch(setUser(response.data.data));
 					resetForm();
 					navigate("/");
 				} catch (error) {
