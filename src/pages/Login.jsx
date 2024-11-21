@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/userSlice";
+import { toast } from "sonner";
 
 const initial_values = {
 	email: "",
@@ -28,15 +29,52 @@ export default function Login() {
 				const host = "http://localhost:6010/api/v1/users/login";
 				try {
 					const response = await axios.post(host, values);
-					console.log(response);
+
+					// Set cookies and update state
 					Cookies.set("accessToken", response.data.data.accessToken, {
 						expires: inFifteenMinutes,
 					});
 					dispatch(setUser(response.data.data));
+
+					// Show success message
+					toast.success(
+						response.data.data.message || "Successfully Logged In"
+					);
 					resetForm();
 					navigate("/");
 				} catch (error) {
-					console.log(error);
+					if (error.response) {
+						const { status, data } = error.response;
+						switch (status) {
+							case 400:
+								toast.error(
+									data.message ||
+										"Bad Request. Please check your input."
+								);
+								break;
+							case 404:
+								toast.error(
+									data.message ||
+										"User not found. Please check your credentials."
+								);
+								break;
+							case 500:
+								toast.error(
+									data.message ||
+										"Server error. Please try again later."
+								);
+								break;
+							default:
+								toast.error(
+									data.message ||
+										"An unexpected error occurred."
+								);
+						}
+					} else {
+						toast.error(
+							"Network error. Please check your internet connection."
+						);
+					}
 				}
 			},
 		});
@@ -78,9 +116,9 @@ export default function Login() {
 									: "border-gray-300 focus:ring-blue-500"
 							}`}
 						/>
-						{errors.email && touched.email ? (
+						{errors.email && touched.email && (
 							<Error msg={errors.email} />
-						) : null}
+						)}
 					</div>
 
 					<div className="space-y-2">
@@ -104,9 +142,9 @@ export default function Login() {
 									: "border-gray-300 focus:ring-blue-500"
 							}`}
 						/>
-						{errors.password && touched.password ? (
+						{errors.password && touched.password && (
 							<Error msg={errors.password} />
-						) : null}
+						)}
 					</div>
 
 					<div className="mt-4">

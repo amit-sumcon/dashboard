@@ -19,7 +19,6 @@ const formatDateTime = (dateString) => {
 
 const Tasktable = ({ columns, filteredTasks, onUpdateStatus }) => {
     const columnKeys = Object.keys(columns).filter((columnName) => columns[columnName]);
-    console.log(filteredTasks);
 
     const handleStatusChange = async (taskId) => {
         try {
