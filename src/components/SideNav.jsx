@@ -66,7 +66,7 @@ function SideNav({ isMenu, setIsMenu }) {
 		>
 			<div className="flex justify-between items-center gap-16 pt-6 pb-3 px-4">
 				<div className="flex items-center gap-2">
-					<span className={`text-xl font-bold`}>Thrive</span>
+					<span className={`text-xl font-bold`}>Sumcon</span>
 				</div>
 				{isLargeView ? (
 					<div
