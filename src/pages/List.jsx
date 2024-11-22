@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import Employees from "./Employees";
 
 function List() {
-    return (
-        <div>List</div>
-    )
+	return <Employees />;
 }
 
-export default List
+export default List;

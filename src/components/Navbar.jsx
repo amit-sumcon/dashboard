@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import userImage from "../assets/user-image.png";
 import { useSelector } from "react-redux";
+import { persistor } from "../redux/store";
 
 function Navbar({ setIsMenu }) {
 	const [isShow, setIsShow] = useState(false);
@@ -34,6 +35,7 @@ function Navbar({ setIsMenu }) {
 	const handleLogout = async () => {
 		try {
 			Cookies.remove("accessToken");
+			persistor.purge();
 			navigate("/login");
 		} catch (error) {
 			console.error("Logout failed:", error);
