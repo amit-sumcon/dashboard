@@ -17,6 +17,16 @@ const formatDateTime = (dateString) => {
     return date.toLocaleString(undefined, options);
 };
 
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+    };
+    return date.toLocaleDateString(undefined, options);
+};
+
 const Tasktable = ({ columns, filteredTasks, onUpdateStatus }) => {
     const columnKeys = Object.keys(columns).filter((columnName) => columns[columnName]);
 
@@ -81,19 +91,21 @@ const Tasktable = ({ columns, filteredTasks, onUpdateStatus }) => {
                         <tr key={index} className="text-gray-700 dark:text-gray-400">
                             {columnKeys.map((columnName) => (
                                 <td key={columnName} className="border border-gray-800 px-4 py-2">
-                                    {columnName === 'status' ? (
-                                        <input
-                                            type="checkbox"
-                                            checked={task[columnName]}
-                                            onChange={() => handleStatusChange(task.id)}
-                                            className="cursor-pointer"
-                                        />
-                                    ) : columnName === 'planned' || columnName === 'actual' || columnName === 'updatedAt' ? (
-                                        task[columnName] ? formatDateTime(task[columnName]) : null
-                                    ) : (
-                                        task[columnName]
-                                    )}
-                                </td>
+                                {columnName === 'status' ? (
+                                    <input
+                                        type="checkbox"
+                                        checked={task[columnName]}
+                                        onChange={() => handleStatusChange(task.id)}
+                                        className="cursor-pointer"
+                                    />
+                                ) : columnName === 'planned' ? (
+                                    task[columnName] ? formatDate(task[columnName]) : null
+                                ) : columnName === 'actual' || columnName === 'updatedAt' ? (
+                                    task[columnName] ? formatDateTime(task[columnName]) : null
+                                ) : (
+                                    task[columnName]
+                                )}
+                            </td>                            
                             ))}
                         </tr>
                     ))}
