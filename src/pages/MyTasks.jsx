@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux"; // To get the user info from Redux store
+import { useSelector } from "react-redux"; // Import useSelector to access Redux state
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import SearchBar from "../components/SearchBar";
 import ColumnToggle from "../components/ColumnToggle";
 import Export from "../components/Export";
-import AssignTaskForm from "../components/AssignTask";
 
 const TaskManagement = () => {
 	const [tasks, setTasks] = useState([]);
@@ -28,37 +27,33 @@ const TaskManagement = () => {
 		updatedAt: true,
 		updatedBy: true,
 	});
-	const [showForm, setShowForm] = useState(false); // Track visibility of the form
 
-	// Get user and role from Redux store
-	const { user } = useSelector((state) => state.user); // Assuming the user and role are stored under 'user'
-	const userRole = user?.role;
-	const doerEmail = user?.email;
+	// Get email from Redux
+	const { user } = useSelector((state) => state.user); // Assuming the email is stored under 'user'
+	const doerEmail = user?.email; // Get the email from the Redux store
+	console.log(user);
 
-	// Fetch tasks when component mounts or role changes
 	useEffect(() => {
-		if (doerEmail && userRole) {
-			fetchTasks(doerEmail, userRole);
+		// Fetch tasks once the email is available
+		if (doerEmail) {
+			fetchTasks(doerEmail);
 		}
-	}, [doerEmail, userRole]);
+	}, [doerEmail]); // Re-run fetch when the email changes
 
-	// Function to fetch tasks based on role
-	const fetchTasks = async (email, role) => {
+	const fetchTasks = async (email) => {
 		try {
-			let url = "http://localhost:6010/api/v1/tasks/";
-			let params = {};
+			console.log(email);
 
-			if (role === "TEAM_MEMBER") {
-				// For TEAM_MEMBER, fetch only their tasks
-				url = "http://localhost:6010/api/v1/tasks/my-tasks"; // Custom endpoint for TEAM_MEMBER
-				params = { doerEmail: email }; // Send email as parameter
-			}
-
-			const res = await axios.get(url, {
-				params: params,
-				withCredentials: true, // Ensure cookies/session are sent if using authentication
-			});
-			setTasks(res.data.data || []); // Set tasks, fallback to empty array if no data
+			const res = await axios.get(
+				"http://localhost:6010/api/v1/tasks/my-tasks",
+				{
+					doerEmail: email,
+				},
+				{
+					withCredentials: true,
+				}
+			);
+			setTasks(res.data.data || []); // Fallback to empty array if no data
 		} catch (error) {
 			console.error("Error fetching tasks:", error);
 			setTasks([]); // Ensure the app doesn't break if API call fails
@@ -68,7 +63,6 @@ const TaskManagement = () => {
 	const handleSearch = (event) => {
 		setSearchTerm(event.target.value);
 		setCurrentPage(1);
-		console.log(event.target.value);
 	};
 
 	const handleColumnToggle = (columnName) => {
@@ -122,7 +116,7 @@ const TaskManagement = () => {
 	};
 
 	return (
-		<div className="w-full mx-auto relative">
+		<div className="w-full mx-auto">
 			<div className="flex flex-col gap-3 md:flex-row items-start justify-between md:items-center mb-4">
 				<SearchBar
 					handleSearch={handleSearch}
@@ -130,26 +124,14 @@ const TaskManagement = () => {
 					tasksPerPage={tasksPerPage}
 				/>
 
-				<div
-					className={`flex items-center ${
-						userRole === "TEAM_MEMBER" && "hidden"
-					}`}
-				>
+				<div className="flex items-center">
 					<Export tasks={tasks} />
 					<ColumnToggle
 						columns={columns}
 						handleColumnToggle={handleColumnToggle}
 					/>
-					{/* Button to toggle the AssignTaskForm */}
-					<button
-						onClick={() => setShowForm(true)}
-						className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-					>
-						Add Task
-					</button>
 				</div>
 			</div>
-
 			<div className="w-full">
 				<Table
 					columns={columns}
@@ -167,13 +149,6 @@ const TaskManagement = () => {
 				prevPage={prevPage}
 				goToFirstPage={goToFirstPage}
 				goToLastPage={goToLastPage}
-			/>
-
-			<AssignTaskForm
-				showForm={showForm}
-				setShowForm={setShowForm}
-				tasks={tasks}
-				setTasks={setTasks}
 			/>
 		</div>
 	);

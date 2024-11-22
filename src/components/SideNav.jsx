@@ -1,12 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
 
+// Define navigation items
 const management = [
 	{
-		label: "Task Management",
-		path: "/management/task-management",
+		label: "Tasks",
+		path: "/tasks",
 		icon: "task",
+	},
+];
+
+const userNav = [
+	{
+		label: "List",
+		path: "/user/list",
+		icon: "list-ol",
+	},
+	{
+		label: "View",
+		path: "/user/view",
+		icon: "street-view",
+	},
+];
+
+const rolesPermissionsNav = [
+	{
+		label: "Roles",
+		path: "/roles-permissions/roles",
+		icon: "check-shield",
+	},
+	{
+		label: "Permissions",
+		path: "/roles-permissions/permissions",
+		icon: "lock-alt",
 	},
 ];
 
@@ -15,6 +43,7 @@ function SideNav({ isMenu, setIsMenu }) {
 	const [isLocked, setIsLocked] = useState(true);
 
 	const isLargeView = useMediaQuery({ query: "(min-width: 1024px)" });
+	const { user } = useSelector((state) => state.user); // Access user info from Redux
 
 	const handleMenuOpen = () => {
 		setIsMenu(false);
@@ -52,6 +81,23 @@ function SideNav({ isMenu, setIsMenu }) {
 	const isActive = (path) => {
 		return location.pathname === path;
 	};
+
+	// Filter navigation items based on role
+	const getRoleBasedNavItems = () => {
+		const baseNav = [
+			{ label: "Dashboard", path: "/", icon: "home-smile" },
+			...management,
+		];
+
+		// Check user role
+		if (user?.role === "ADMIN" || user?.role === "SUPER_ADMIN") {
+			return [...baseNav, ...userNav, ...rolesPermissionsNav]; // Include all options for admins
+		}
+
+		return baseNav; // Non-admin users see only Dashboard and MyTasks
+	};
+
+	const roleBasedNav = getRoleBasedNavItems();
 
 	return (
 		<div
@@ -94,82 +140,16 @@ function SideNav({ isMenu, setIsMenu }) {
 			</div>
 			<div className="w-full h-[630px] lg:h-full overflow-y-scroll hide-scrollbar">
 				<div className="flex flex-col gap-4 mt-5 lg:mb-20 pl-6 w-full">
-					<LinkItem
-						isActive={isActive("/")}
-						label="DashBoard"
-						path="/"
-						icon_name="home-smile"
-						isCollapsed={isCollapsed}
-					/>
-					<div className="flex flex-col gap-3 w-full">
-						<div className="flex flex-col gap-3 w-full">
-							<span
-								className={`${
-									isCollapsed && "hidden"
-								} text-sm text-gray-400`}
-							>
-								Pages
-							</span>
-							{management.map((item, index) => (
-								<LinkItem
-									isActive={isActive(item.path)}
-									path={item.path}
-									label={item.label}
-									icon_name={item.icon}
-									key={index}
-									isCollapsed={isCollapsed}
-								/>
-							))}
-						</div>
-						<div className="flex flex-col gap-3 w-full">
-							<span
-								className={`${
-									isCollapsed && "hidden"
-								} text-sm text-gray-400`}
-							>
-								User
-							</span>
-							<LinkItem
-								isActive={isActive("/user/list")}
-								label="List"
-								path="/user/list"
-								icon_name="list-ol"
-								isCollapsed={isCollapsed}
-							/>
-							<LinkItem
-								isActive={isActive("/user/view")}
-								label="View"
-								path="/user/view"
-								icon_name="street-view"
-								isCollapsed={isCollapsed}
-							/>
-						</div>
-						<div className="flex flex-col gap-3 w-full">
-							<span
-								className={`${
-									isCollapsed && "hidden"
-								} text-sm text-gray-400`}
-							>
-								Roles & Permissions
-							</span>
-							<LinkItem
-								isActive={isActive("/roles-permissions/roles")}
-								label="Roles"
-								path="/roles-permissions/roles"
-								icon_name="check-shield"
-								isCollapsed={isCollapsed}
-							/>
-							<LinkItem
-								isActive={isActive(
-									"/roles-permissions/permissions"
-								)}
-								label="Permissions"
-								path="/roles-permissions/permissions"
-								icon_name="lock-alt"
-								isCollapsed={isCollapsed}
-							/>
-						</div>
-					</div>
+					{roleBasedNav.map((item, index) => (
+						<LinkItem
+							isActive={isActive(item.path)}
+							path={item.path}
+							label={item.label}
+							icon_name={item.icon}
+							key={index}
+							isCollapsed={isCollapsed}
+						/>
+					))}
 				</div>
 			</div>
 		</div>

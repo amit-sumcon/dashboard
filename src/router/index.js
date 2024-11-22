@@ -19,9 +19,7 @@ function AppRouter({ setIsDarkMode }) {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route index element={<Dashboard />} />
-          <Route path='management'>
-            <Route path='task-management' element={<TaskManagement />} />
-          </Route>
+            <Route path='tasks' element={<TaskManagement />} />
 
           {/* User Routes */}
           <Route path='user'>
